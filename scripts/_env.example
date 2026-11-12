@@ -1,0 +1,18 @@
+# _env.example —— 复制为同目录 _env.sh（不入仓）并按本机/本项目改写
+# 三个运维脚本（patrol / prune_keepseg / auto_cycle）共用这份本机配置。
+
+SSH_HOST=cluster                              # ~/.ssh/config 里的集群别名
+DEPLOY_DIR='~/cluster-deploy/casefamilyA'     # 集群端部署根目录（~ 由远端 shell 展开）
+CASES_FILE='_shared/cases.txt'                # 案名清单，相对 DEPLOY_DIR
+CASE_GLOB='case*/'                            # 容量/案数显示用的案目录 glob（相对 DEPLOY_DIR）
+RESULTS="$HOME/casefamilyA_results"           # 本地收割落盘根（auto_cycle 用）
+KEEP_LAST=5                                   # 滑动窗：每案保留最新 N 档
+SEGS='0.50 1.00 1.50 2.00'                    # 默认段末时刻表（空格分隔）
+
+# 进阶（可选）：按案名返回不同段末表，覆盖 SEGS
+# segs_for_case() {
+#   case "$1" in
+#     *seriesA*) echo "0.50 1.00 1.50 2.00" ;;
+#     *)         echo "$SEGS" ;;
+#   esac
+# }
